@@ -1,39 +1,70 @@
 # Image Inspector Pro 🔍
 
-Una extensión de navegador profesional diseñada para el análisis exhaustivo de imágenes web, diagnóstico de color y extracción de metadatos técnicos.
+A professional browser extension designed for in-depth web image analysis, color diagnostics, and technical metadata extraction.
 
-![Image Inspector Demo](Example/demo.png)
+<p align="center">
+  <img width="906" height="683" alt="msedge_a850Xv1XEq" src="https://github.com/user-attachments/assets/7788fa71-98a5-4c4b-a7eb-38de99b0c352" />
+</p>
 
-## ✨ Características Principales
+## ✨ Key Features
 
-- **Diagnóstico en Tiempo Real**: Visualiza dimensiones, megapíxeles y peso del archivo al pasar el ratón.
-- **Motor de Color SOTA**: Extracción de paletas de colores mediante cuantización *Median Cut* para una precisión cromática profesional.
-- **Soporte SVG Vectorial**: Análisis directo del código fuente para extraer colores de iconos y logotipos sin pérdida de datos.
-- **Metadatos Avanzados (BETA)**: Extracción de datos EXIF, parámetros de cámara (apertura, modelo), software de edición y coordenadas GPS con enlace a Google Maps.
-- **Relación de Aspecto Inteligente**: Detección automática de formatos estándar (16:9, 4:3, 3:2, etc.).
-- **Modo Congelar (Shift)**: Fija el inspector para interactuar con la paleta de colores, buscar en Google Lens o copiar la URL.
-- **Multilingüe**: Soporte completo para Español, Inglés, Ruso, Portugués, Japonés y Chino.
-- **Personalización Extrema**: Temas Claro/Oscuro y configuración de colores de acento.
+- **Real-Time Diagnostics**: View dimensions, megapixels, and file size by simply hovering over any image.
+- **SOTA Color Engine**: Extract color palettes using *Median Cut* quantization for professional-grade color accuracy.
+- **SVG Vector Support**: Direct source analysis to extract colors from icons and logos without data loss.
+- **Advanced Metadata (BETA)**: Extract EXIF data, camera parameters (aperture, model), editing software, and GPS coordinates with a Google Maps link.
+- **Smart Aspect Ratio Detection**: Automatically identifies standard formats (16:9, 4:3, 3:2, etc.).
+- **Freeze Mode (Shift)**: Lock the inspector to interact with the color palette, search with Google Lens, or copy the image URL.
+- **Google Lens Integration**: Instantly search images directly from the inspector.
+- **Quick Eyedropper Tool**: Fast color picking for any pixel on screen.
+- **Toggle Shortcut (Alt + S)**: Quickly enable or disable the extension at any time.
+- **Multilingual**: Full support for Spanish, English, Russian, Portuguese, Japanese, and Chinese.
+- **Extreme Customization**: Light/Dark themes and accent color configuration.
 
-## 🚀 Instalación (Desarrollador)
+## 🚀 Installation (Developer)
 
-1. Descarga o clona este repositorio.
-2. Abre tu navegador (Chrome, Edge, Brave).
-3. Ve a `chrome://extensions/`.
-4. Activa el **"Modo de desarrollador"** (Developer mode).
-5. Haz clic en **"Cargar descomprimida"** (Load unpacked) y selecciona la carpeta del proyecto.
+1. Download or clone this repository.
+2. Open your browser (Chrome, Edge, Brave).
+3. Go to `chrome://extensions/`.
+4. Enable **"Developer mode"**.
+5. Click **"Load unpacked"** and select the project folder.
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
-- **JavaScript (Vanilla)**: Lógica de alto rendimiento sin dependencias externas.
-- **HTML5 & CSS3**: Interfaz premium con efectos de *glassmorphism* y animaciones fluidas.
-- **Chrome Extension API v3**: Arquitectura moderna y segura.
-- **EXIF Engine**: Motor propio de análisis binario para cabeceras JPEG/TIFF.
+- **JavaScript (Vanilla)**: High-performance logic without external dependencies.
+- **HTML5 & CSS3**: Premium interface with *glassmorphism* effects and smooth animations.
+- **Chrome Extension API v3**: Modern and secure architecture.
+- **EXIF Engine**: Custom binary analysis engine for JPEG/TIFF headers.
 
-## 📄 Licencia
+## 📸 Demo
 
-Este proyecto es de código abierto. 
+<p align="center">
+  <img width="265" height="398" alt="itIe5C2dxk" src="https://github.com/user-attachments/assets/8db48247-1cc9-43ae-a704-8a7f68e4a2de" />
+</p>
+
+**Main extension menu:** Displays the core interface with quick access to image inspection tools and real-time data.
+
+<p align="center">
+  <img width="265" height="600" alt="DcdR0kqhaD" src="https://github.com/user-attachments/assets/38f703b5-dafb-4650-962a-c2b765b0a3ad" />
+</p>
+
+**Advanced panel with metadata:** Shows detailed technical information including EXIF data, camera settings, and additional image properties.
+
+<p align="center">
+  <img width="265" height="600" alt="BGmMpiKGd5" src="https://github.com/user-attachments/assets/9db45080-2699-46af-a0e9-62795ed4cd2e" />
+</p>
+
+**Metadata with customization options:** Includes color palette extraction, format detection, language settings, and optional toggle buttons for advanced features.
+
+<p align="center">
+  <img width="265" height="600" alt="vDIvTYUKxv" src="https://github.com/user-attachments/assets/7eacf815-b9ec-4afd-9fcd-653cb6481a77" />
+</p>
+
+**Blacklist system:** Displays a list of excluded websites where the extension will not run.
+
+## 📄 License
+
+This project is open source.
 
 ---
-**Desarrollado por [AtaraxInDev](https://github.com/AtaraxInDev)**  
-*Todos los derechos reservados © 2026*
+**Developed by [AtaraxInDev](https://github.com/AtaraxInDev)**  
+*All rights reserved © 2026*
