@@ -9,7 +9,7 @@
       --input-bg: #111; --item-bg: #0e0e0e;
     }
     body.light-theme {
-      --bg: #f5f5f5; --card: #ffffff; --text: #1c1a17; --text-muted: #666; --border: #e0e0e0; --accent: #c03962;
+      --bg: #f5f5f5; --card: #ffffff; --text: #1c1a17; --text-muted: #666; --border: #e0e0e0;
       --input-bg: #eee; --item-bg: #f9f9f9;
     }
 
@@ -18,8 +18,21 @@
       width: 265px; margin: 0; padding: 0;
       background: var(--bg); color: var(--text); 
       font-family: 'Segoe UI', system-ui, sans-serif; 
-      overflow: hidden !important; /* BLOQUEO ABSOLUTO */
+      overflow: hidden !important;
       transition: background 0.3s, color 0.3s;
+      animation: popup-entrance 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    body {
+      box-sizing: border-box;
+      padding: 6px;
+      box-shadow: 
+        inset 0 0 0 2px var(--accent), 
+        inset 0 0 0 4px var(--bg), 
+        inset 0 0 0 6px var(--accent);
+    }
+    @keyframes popup-entrance {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
     }
     ::-webkit-scrollbar { display: none !important; width: 0 !important; }
     * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
@@ -31,9 +44,9 @@
     .header h1 { font-size: 13px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
     .header p { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 1px; }
 
-    .main-container { width: 265px; position: relative; overflow: hidden !important; }
-    .panels-wrapper { display: flex; width: 530px; align-items: flex-start; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-    .panel { width: 265px; flex-shrink: 0; background: var(--bg); }
+    .main-container { width: 253px; position: relative; overflow: hidden !important; }
+    .panels-wrapper { display: flex; width: 506px; align-items: flex-start; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+    .panel { width: 253px; flex-shrink: 0; background: var(--bg); }
 
     .body { padding: 15px; }
 
@@ -127,10 +140,14 @@
     .info-item strong { color: var(--text); }
     
     .footer {
-      padding: 10px 15px 14px; text-align: center;
+      padding: 14px 15px 18px; text-align: center;
       font-size: 10px; color: var(--text-muted); border-top: 1px solid var(--border);
-      margin-top: 5px;
+      margin-top: 15px;
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.6;
     }
+    .footer:hover { opacity: 1; }
+    body.animating-menu .footer { opacity: 0.2; transform: translateY(4px); }
     
     select, input[type="number"] {
       background: var(--input-bg); color: var(--text); border: 1px solid var(--border);
@@ -139,6 +156,38 @@
     .custom-card { border: 1px dashed var(--border) !important; background: transparent !important; }
     .btn-icon#btnTheme svg { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     body.light-theme .btn-icon#btnTheme svg { transform: rotate(180deg); }
+    input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
+
+    /* Estilos para la transición de barrido circular (efecto agua) */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+    ::view-transition-old(root) { z-index: 1; }
+    ::view-transition-new(root) { z-index: 999; }
+
+    /* Animación fluida para menús desplegables (Accordion) */
+    details {
+      display: block;
+      overflow: hidden;
+    }
+    details .custom-card {
+      display: block;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    details[open] .custom-card {
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 8px;
+    }
+    summary { transition: background 0.3s; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover { background: var(--item-bg) !important; filter: brightness(1.1); }
+    summary span:last-child { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block; }
+    details[open] summary span:last-child { transform: rotate(180deg); }
   </style>
 </head>
 <body>
@@ -187,7 +236,7 @@
 
           <!-- Advanced Collapsible -->
           <details id="detailsAdv" class="info-list" style="border:none; background:transparent; margin-bottom: 10px;">
-            <summary id="summaryAdv" style="list-style:none; cursor:pointer; padding: 10px 12px; background:#111; border: 1px solid #1a1a1a; border-radius:9px; display:flex; align-items:center; gap:8px; font-weight:600; color:#aaa; font-size:11px;">
+            <summary id="summaryAdv" style="list-style:none; cursor:pointer; padding: 10px 12px; background:var(--input-bg); border: 1px solid var(--border); border-radius:9px; display:flex; align-items:center; gap:8px; font-weight:600; color:var(--text-muted); font-size:11px;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.85,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12c0,0.31,0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.5c-1.93,0-3.5-1.57-3.5-3.5 s1.57-3.5,3.5-3.5s3.5,1.57,3.5,3.5S13.93,15.5,12,15.5z"/></svg>
               <span id="txtAdv">Ajustes y funciones avanzadas</span>
               <span style="margin-left:auto; font-size:8px; opacity:0.3;">▼</span>
@@ -197,24 +246,28 @@
               <div class="color-row">
                 <span id="txtAccent">Color de acento</span>
                 <div class="color-input-wrapper">
-                  <input type="color" id="accentColor" value="#c03962">
+                  <input type="color" id="accentColor">
                 </div>
               </div>
-              <div class="color-row" style="margin-bottom:12px;">
+              <div class="color-row">
                 <span id="txtBgPanel">Fondo del panel</span>
                 <div class="color-input-wrapper">
-                  <input type="color" id="bgColor" value="#1c1a17">
+                  <input type="color" id="bgColor">
                 </div>
               </div>
+              <button id="btnMagicPalette" title="Generar paleta armónica" style="background: var(--item-bg); border: 1px solid var(--border); border-radius: 4px; width: 100%; height: 26px; margin-top: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; font-size: 10px; color: var(--text-muted); font-weight: 600;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--accent)"><path d="M7.5,5.6L5,7L6.4,4.5L5,2L7.5,3.4L10,2L8.6,4.5L10,7L7.5,5.6M19.5,15.4L22,14L20.6,16.5L22,19L19.5,17.6L17,19L18.4,16.5L17,14L19.5,15.4M22,2L20.6,4.5L22,7L19.5,5.6L17,7L18.4,4.5L17,2L19.5,3.4L22,2M13.34,12.78L15.78,10.34L13.66,8.22L11.22,10.66L13.34,12.78M14.37,7.29L16.71,9.63C17.1,10.02 17.1,10.65 16.71,11.04L5.04,22.71C4.65,23.1 4.02,23.1 3.63,22.71L1.29,20.37C0.9,19.98 0.9,19.35 1.29,18.96L12.96,7.29C13.35,6.9 13.98,6.9 14.37,7.29Z"/></svg>
+                GENERAR PALETA MÁGICA
+              </button>
 
               <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
                 <span id="txtPalette">Paleta de colores</span>
-                <input type="checkbox" id="checkPalette" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkPalette">
               </label>
               <div id="paletteSettings" style="margin-bottom: 10px; padding-left: 8px; border-left: 2px solid #222;">
                 <div class="color-row" style="margin-bottom: 8px;">
                   <span style="color:#666; font-size: 10px;" id="txtFormat">Formato de copiado</span>
-                  <select id="colorFormat" style="background:#111; color:#aaa; border:1px solid #333; font-size:10px; border-radius:4px; padding:1px 3px;">
+                  <select id="colorFormat">
                     <option value="HEX">HEX</option>
                     <option value="RGB">RGB</option>
                     <option value="HSL">HSL</option>
@@ -224,42 +277,47 @@
                 </div>
                 <div class="color-row">
                   <span style="color:#666; font-size: 10px;" id="txtSamples">Muestras (1-50)</span>
-                  <input type="number" id="colorCount" min="1" max="50" value="3" style="width:40px; background:#111; color:#aaa; border:1px solid #333; font-size:10px; border-radius:4px; padding:1px 3px;">
+                  <input type="number" id="colorCount" min="1" max="50" value="3" style="width:40px;">
                 </div>
               </div>
               <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
                 <span id="txtSearch">Búsqueda inversa (Lens)</span>
-                <input type="checkbox" id="checkSearch" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkSearch">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
                 <span id="txtEye">Cuentagotas (EyeDropper)</span>
-                <input type="checkbox" id="checkEye" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkEye">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
                 <span id="txtOpen">Abrir origen de imagen</span>
-                <input type="checkbox" id="checkOpen" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkOpen">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
                 <span id="txtUrl">Copiar URL de imagen</span>
-                <input type="checkbox" id="checkUrl" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkUrl">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 5px;">
                 <span id="txtFreeze">Modo Congelar (Shift)</span>
-                <input type="checkbox" id="checkFreeze" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkFreeze">
               </label>
               <div id="freezeSettings" style="margin-bottom: 10px; padding-left: 8px; border-left: 2px solid #222;">
                 <div class="color-row">
                   <span style="color:#666; font-size: 10px;" id="txtAction">Acción de Shift</span>
-                  <select id="freezeMode" style="background:#111; color:#aaa; border:1px solid #333; font-size:10px; border-radius:4px; padding:1px 3px;">
+                  <select id="freezeMode">
                     <option value="HOLD" id="optHold">Mantener presionado</option>
                     <option value="TOGGLE" id="optToggle">Pulsar una vez (Toggle)</option>
                   </select>
                 </div>
               </div>
 
+              <label class="color-row" style="cursor:pointer; margin-bottom: 10px;">
+                <span id="txtSmartBorder">Borde Inteligente (PNGs)</span>
+                <input type="checkbox" id="checkSmartBorder">
+              </label>
+
               <div class="color-row" style="margin-top: 10px; border-top: 1px solid #222; padding-top: 10px;">
                 <span id="txtInterface">Idioma (Interface)</span>
-                <select id="langSelect" style="background:#111; color:#aaa; border:1px solid #333; font-size:10px; border-radius:4px; padding:1px 3px;">
+                <select id="langSelect">
                   <option value="auto" id="optAuto">Automático</option>
                   <option value="en">English</option>
                   <option value="es">Español</option>
@@ -274,7 +332,7 @@
 
           <!-- Metadata Display Collapsible -->
           <details id="detailsMeta" class="info-list" style="border:none; background:transparent; margin-bottom: 10px;">
-            <summary id="summaryMeta" style="list-style:none; cursor:pointer; padding: 10px 12px; background:#111; border: 1px solid #1a1a1a; border-radius:9px; display:flex; align-items:center; gap:8px; font-weight:600; color:#aaa; font-size:11px;">
+            <summary id="summaryMeta" style="list-style:none; cursor:pointer; padding: 10px 12px; background:var(--input-bg); border: 1px solid var(--border); border-radius:9px; display:flex; align-items:center; gap:8px; font-weight:600; color:var(--text-muted); font-size:11px;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11,9H13V7H11M11,17H13V11H11M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"/></svg>
               <span id="txtMetaTitle">Visualización de Metadatos</span>
               <span style="margin-left:auto; font-size:8px; opacity:0.3;">▼</span>
@@ -282,51 +340,51 @@
             <div class="custom-card" style="margin-top:8px; border-style: dashed;">
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaDomain">Dominio de origen</span>
-                <input type="checkbox" id="checkMetaDomain" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaDomain">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaRatio">Relación de aspecto</span>
-                <input type="checkbox" id="checkMetaRatio" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaRatio">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaDate">Fecha y hora (BETA)</span>
-                <input type="checkbox" id="checkMetaDate" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaDate">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaCamera">Cámara (BETA)</span>
-                <input type="checkbox" id="checkMetaCamera" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaCamera">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaGPS">Coordenadas GPS (BETA)</span>
-                <input type="checkbox" id="checkMetaGPS" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaGPS">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaAperture">Apertura (BETA)</span>
-                <input type="checkbox" id="checkMetaAperture" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaAperture">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaCreator">Autor (BETA)</span>
-                <input type="checkbox" id="checkMetaCreator" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaCreator">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaCopyright">Copyright (BETA)</span>
-                <input type="checkbox" id="checkMetaCopyright" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaCopyright">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaOrientation">Orientación (BETA)</span>
-                <input type="checkbox" id="checkMetaOrientation" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaOrientation">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaSoftware">Software (BETA)</span>
-                <input type="checkbox" id="checkMetaSoftware" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaSoftware">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 8px;">
                 <span id="lblMetaTitle">Título (BETA)</span>
-                <input type="checkbox" id="checkMetaTitle" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaTitle">
               </label>
               <label class="color-row" style="cursor:pointer; margin-bottom: 4px;">
                 <span id="lblMetaProfile">Perfil color (BETA)</span>
-                <input type="checkbox" id="checkMetaProfile" style="accent-color: #c03962;">
+                <input type="checkbox" id="checkMetaProfile">
               </label>
             </div>
           </details>
